@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Wall
   - RapidFire
+  - Nuke
   layers:
   - Default
   - TransparentFX

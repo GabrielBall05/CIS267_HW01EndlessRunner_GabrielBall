@@ -12,13 +12,15 @@ public class Collectables : MonoBehaviour
     {
         collectableRigidBody = GetComponent<Rigidbody2D>();
         //stops gravity and acceleration
-        //collectableRigidBody.isKinematic = true;
-        //somehow disable acceleration
+        collectableRigidBody.isKinematic = true;
     }
 
     void Update()
     {
         hasCollectableHitGround();
+        //Fall at constant speed (fallingSpeed determined in Unity editor)
+        transform.position -= transform.up * Time.deltaTime * fallingSpeed;
+        //Collectable value is also determined via Unity editor
     }
 
     public void destroyCollectable()
