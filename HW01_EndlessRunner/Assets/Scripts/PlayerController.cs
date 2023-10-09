@@ -54,19 +54,25 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("RapidFire"))
         {
-            int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableValue();
-            collision.GetComponent<Collectables>().destroyCollectable();
-            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            //Give player Rapid Fire
             hasRapidFire = true;
+            //Get Weighted Value (based off time) and amount of collectables collected
+            //Change numCollectablesCollected * 5 accordingly
+            int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
+            //Update the Score
+            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            //Destroy the GameObject
+            collision.GetComponent<Collectables>().destroyCollectable();
         }
         if (collision.gameObject.CompareTag("Nuke"))
         {
-            //Get Valye
-            int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableValue();
-            //Destroy the GameObject
-            collision.GetComponent<Collectables>().destroyCollectable();
+            //Get Weighted Value (based off time) and amount of collectables collected
+            //Change numCollectablesCollected * 5 accordingly
+            int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
             //Update the Score
             GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            //Destroy the GameObject
+            collision.GetComponent<Collectables>().destroyCollectable();
         }
         //else if (collectable 3)
         //else if (collectable 4)
@@ -77,13 +83,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //change "something" to the obstacle/enemy
-        if(collision.gameObject.CompareTag("something"))
+        //If the player runs into an enemy, game over
+        if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Figure8Enemy") || collision.gameObject.CompareTag("HorizontalEnemy"))
         {
             //end game because i just hit an enemy
-
-            //In my enemy.cs i will have another oncollisionenter2d.
-            //this function will also end game if enemy hit the ground (made it past the player)
+            gm.setGameOver(true);
         }
     }
 }

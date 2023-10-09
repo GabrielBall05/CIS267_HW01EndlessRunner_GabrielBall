@@ -5,46 +5,30 @@ using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
-    private float time;
     private TMP_Text timeGUI;
 
-    public GameObject gameManager;
+    //Clock doesn't actually keep track of time, but GameManager does
+    //This script is really just to update the timer in the top left cornerda
+    public GameObject GameManager;
     private GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
-        gm = gameManager.GetComponent<GameManager>();
+        gm = GameManager.GetComponent<GameManager>();
         timeGUI = GetComponent<TMP_Text>();
-        time = 0;
         updateTimeGUI();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timerTick();
-    }
-
-    public float getTime()
-    {
-        return time;
-    }
-
-    public void setTime(float t)
-    {
-        time = t;
-    }
-
-    public void timerTick()
-    {
-        time += Time.deltaTime;
         updateTimeGUI();
     }
 
     public void updateTimeGUI()
     {
         //#.00 rounds float to 2 decimal places
-        timeGUI.text = "Time: " + time.ToString("#.00") + "s";
+        timeGUI.text = "Time: " + gm.getTime().ToString("#.00") + "s";
     }
 }

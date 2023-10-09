@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7909740997656196266}
   - component: {fileID: 3958248921760914418}
   - component: {fileID: 8610168914296638499}
+  - component: {fileID: 5210482066291178149}
   m_Layer: 0
   m_Name: NukeCollectable
   m_TagString: Nuke
@@ -173,3 +174,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectableValue: 100
   fallingSpeed: 5
+--- !u!114 &5210482066291178149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219031894239648172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bc92377a8bcc9459ca13ed77b8f059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

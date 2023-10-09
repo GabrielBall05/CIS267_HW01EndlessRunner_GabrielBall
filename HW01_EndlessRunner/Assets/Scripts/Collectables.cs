@@ -8,11 +8,11 @@ public class Collectables : MonoBehaviour
     public int collectableValue;
     public int fallingSpeed;
 
+    //Add GameManager.cs as a component to all collectables so that they can access its .getTime() function
+
     void Start()
     {
         collectableRigidBody = GetComponent<Rigidbody2D>();
-        //stops gravity and acceleration
-        collectableRigidBody.isKinematic = true;
     }
 
     void Update()
@@ -36,6 +36,16 @@ public class Collectables : MonoBehaviour
     public void setCollectableValue(int val)
     {
         collectableValue = val;
+    }
+
+    public int getCollectableWeightedValue()
+    {
+        //Get the time from GameManager
+        int time = (int)GetComponent<GameManager>().getTime();
+        //Basic lil formula, might change later
+        int weightedValue = (collectableValue * (time / 2)) / 10;
+
+        return weightedValue;
     }
 
     private void hasCollectableHitGround()
