@@ -8,6 +8,9 @@ TagManager:
   - Wall
   - RapidFire
   - Nuke
+  - Enemy
+  - Figure8Enemy
+  - HorizontalEnemy
   layers:
   - Default
   - TransparentFX
