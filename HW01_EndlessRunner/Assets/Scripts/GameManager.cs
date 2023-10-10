@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private bool gameOver;
 
-    //I want game manager to also keep track of time
+    //I want game manager to keep track of time
     private float time;
 
     // Start is called before the first frame update

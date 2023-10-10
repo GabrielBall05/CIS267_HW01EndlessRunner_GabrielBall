@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ZigZagEnemyController : MonoBehaviour
 {
+    //3
     public float movementSpeed;
+    //1.5
     public float fallingSpeed;
     private bool moveRight;
+    //1.5
     public float offset;
     private float startPosX;
     private bool hitLeftWall;

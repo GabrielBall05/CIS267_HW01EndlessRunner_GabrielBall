@@ -7,7 +7,7 @@ public class F8EnemyController : MonoBehaviour
 {
     private Vector3 startPos;
 
-    //Determined in unity editor (5, 2, 0.5)
+    //Determined in unity editor (5, 1.5, 0.25)
     public float speed;
     public float xScale;
     public float yScale;

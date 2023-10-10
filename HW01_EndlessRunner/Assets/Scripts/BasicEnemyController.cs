@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicEnemyController : MonoBehaviour
 {
-    public float fallingSpeed;
+    public float fallingSpeed; //1
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,8 @@ public class BasicEnemyController : MonoBehaviour
     private void moveEnemy()
     {
         //Falls at constant speed of fallingSpeed determined in Unity Editor
-        transform.Translate(Vector2.down * fallingSpeed * Time.deltaTime);
+        //.left because my sprite is flipped 90 to the right
+        transform.Translate(Vector2.left * fallingSpeed * Time.deltaTime);
     }
 
     public void destroyEnemy()
