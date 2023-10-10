@@ -47,17 +47,18 @@ public class PlayerController : MonoBehaviour
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         playerRigidBody.velocity = new Vector2(movementSpeed * inputHorizontal, playerRigidBody.velocity.y);
-        //maybe call a flip player here (spaceship will tilt)
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("RapidFire"))
+        //Increase number of collectables collected for the scoring algorithm
+        numCollectablesCollected++;
+
+        if (collision.gameObject.CompareTag("RapidFire"))
         {
             //Give player Rapid Fire
             hasRapidFire = true;
             //Get Weighted Value (based off time) and amount of collectables collected
-            //Change numCollectablesCollected * 5 accordingly
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
             //Update the Score
             GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
@@ -66,25 +67,18 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Nuke"))
         {
-            //Get Weighted Value (based off time) and amount of collectables collected
-            //Change numCollectablesCollected * 5 accordingly
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
-            //Update the Score
             GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
-            //Destroy the GameObject
             collision.GetComponent<Collectables>().destroyCollectable();
         }
         //else if (collectable 3)
         //else if (collectable 4)
-
-        //Increase number of collectables collected for the scoring algorithm
-        numCollectablesCollected++;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //If the player runs into an enemy, game over
-        if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Figure8Enemy") || collision.gameObject.CompareTag("HorizontalEnemy"))
+        if(collision.gameObject.CompareTag("Enemy"))
         {
             //end game because i just hit an enemy
             gm.setGameOver(true);

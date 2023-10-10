@@ -8,7 +8,7 @@ public class PlayerScore : MonoBehaviour
 {
     private float timer;
     private float delayAmount;
-    private static int totalScore;
+    private static float totalScore;
     public TMP_Text scoreGUI;
 
     // Start is called before the first frame update
@@ -20,23 +20,23 @@ public class PlayerScore : MonoBehaviour
 
     void Update()
     {
-        //I want to increase the score by 4 every second
+        //Increase the score by 5 every second
         timer += Time.deltaTime;
         if (timer >= delayAmount)
         {
             timer = 0f;
-            setPlayerScore(1);
+            setPlayerScore(1.25f);
         }
     }
 
-    public int getScore()
+    public float getScore()
     {
         return totalScore;
     }
 
-    public void setPlayerScore(int val)
+    public void setPlayerScore(float val)
     {
-        totalScore += val;
+        totalScore += (int)val;
 
         scoreGUI.text = "Score: " + totalScore.ToString();
     }

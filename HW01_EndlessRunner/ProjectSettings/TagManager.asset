@@ -8,9 +8,10 @@ TagManager:
   - Wall
   - RapidFire
   - Nuke
-  - Enemy
   - Figure8Enemy
-  - HorizontalEnemy
+  - BasicEnemy
+  - Enemy
+  - ZigZagEnemy
   layers:
   - Default
   - TransparentFX
