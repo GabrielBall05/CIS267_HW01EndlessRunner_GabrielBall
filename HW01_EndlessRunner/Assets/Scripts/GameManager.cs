@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+
+        //Always call the enemy spawners
+        GetComponent<BasicEnemySpawner>().spawnBasicEnemies();
+        GetComponent<ZigZagEnemySpawner>().spawnZigZagEnemies();
+        GetComponent<F8EnemySpawner>().spawnF8Enemies();
     }
 
     public bool getGameOver()
