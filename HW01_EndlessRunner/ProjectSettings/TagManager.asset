@@ -8,10 +8,7 @@ TagManager:
   - Wall
   - RapidFire
   - Nuke
-  - Figure8Enemy
-  - BasicEnemy
   - Enemy
-  - ZigZagEnemy
   - TimeSlow
   layers:
   - Default
