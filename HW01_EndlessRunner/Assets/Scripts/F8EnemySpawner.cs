@@ -23,16 +23,8 @@ public class F8EnemySpawner : MonoBehaviour
 
         Instantiate(enemy.gameObject);
 
-        if (randomIndex == 2 || randomIndex == 3)
-        {
-            enemy.gameObject.GetComponent<F8EnemyController>().setXScale(0.5f);
-            enemy.gameObject.GetComponent<F8EnemyController>().setXScale(0.5f);
-        }
-
         enemy.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
         //===
-
-        spawnF8Enemies();
     }
 
     // Update is called once per frame
@@ -57,23 +49,7 @@ public class F8EnemySpawner : MonoBehaviour
 
             Instantiate(enemy.gameObject);
 
-            if (randomIndex == 2 || randomIndex == 3)
-            {
-                enemy.gameObject.GetComponent<F8EnemyController>().setXScale(0.5f);
-                enemy.gameObject.GetComponent<F8EnemyController>().setXScale(0.5f);
-            }
-
             enemy.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
         }
-    }
-
-    public float getF8EnemyTimeBetweenSpawns()
-    {
-        return timeBetweenSpawns;
-    }
-
-    public void setF8EnemyTimeBetweenSpawns(float t)
-    {
-        timeBetweenSpawns = t;
     }
 }

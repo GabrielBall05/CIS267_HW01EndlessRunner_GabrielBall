@@ -8,7 +8,7 @@ public class Clock : MonoBehaviour
     private TMP_Text timeGUI;
 
     //Clock doesn't actually keep track of time, but GameManager does
-    //This script is really just to update the timer in the top left cornerda
+    //This script is really just to update the timer in the top left corner
     public GameObject GameManager;
     private GameManager gm;
 

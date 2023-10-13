@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,8 +26,13 @@ public class GameManager : MonoBehaviour
         GetComponent<BasicEnemySpawner>().spawnBasicEnemies();
         GetComponent<ZigZagEnemySpawner>().spawnZigZagEnemies();
         GetComponent<F8EnemySpawner>().spawnF8Enemies();
+        GetComponent<CollectableSpawner>().spawnCollectables();
+
     }
 
+
+    //===============
+    //Game Over Stuff
     public bool getGameOver()
     {
         return gameOver;
@@ -49,6 +55,8 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+    //Game Over Stuff
+    //===============
 
     public float getTime()
     {

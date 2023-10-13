@@ -10,7 +10,7 @@ public class Ground : MonoBehaviour
 
     }
 
-    //If an enemy hits me (the ground):
+    //If an enemy gets past player/hits me (the ground):
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Enemy hit the ground (made it past player): deduct points and destroy enemy gameObject
@@ -18,7 +18,7 @@ public class Ground : MonoBehaviour
         {
             //Deducts 10% of total score if an enemy gets past you
             int deduct = (int)(GetComponent<PlayerScore>().getScore() * (-0.1));
-            Debug.Log(deduct);
+            //Debug.Log(deduct);
             //Change the negative number accordingly for if it's not deducting enough/deducting too much
 
             //Set player score from the PlayerScore.cs script that we have access to because the script is also attached to enemies

@@ -7,8 +7,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidBody;
     public float movementSpeed;
     private float inputHorizontal;
-    private bool hasRapidFire;
+
     public int numCollectablesCollected;
+    //Player ability bools
+    private bool hasRapidFire = false;
+    private bool hasTimeSlow = false;
+
+    //Ability Timers
+    private float timeSlowTimer;
+    private float rapidFireTimer;
 
     public GameObject GameManager;
     private GameManager gm;
@@ -26,6 +33,16 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Update");
         movementHorizontal();
         shoot();
+
+        //Ability stuff
+        if (hasTimeSlow)
+        {
+            timeSlow();
+        }
+        if (hasRapidFire)
+        {
+            //rapidFire();
+        }
     }
 
     private void shoot()
@@ -34,7 +51,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("pew pew");
             //pew pew
-            //shoot projectile
         }
         if (hasRapidFire && Input.GetKey(KeyCode.Space))
         {
@@ -54,25 +70,49 @@ public class PlayerController : MonoBehaviour
         //Increase number of collectables collected for the scoring algorithm
         numCollectablesCollected++;
 
+        //If NUKE
+        if (collision.gameObject.CompareTag("Nuke"))
+        {
+            //Add Score
+            int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
+            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            collision.GetComponent<Collectables>().destroyCollectable();
+
+            //Ability Stuff
+        }
+        //If TIMESLOW
+        if (collision.gameObject.CompareTag("TimeSlow"))
+        {
+            //Add Score
+            int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
+            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            collision.GetComponent<Collectables>().destroyCollectable();
+
+            //Give player TimeSlow
+            hasTimeSlow = true;
+            timeSlowTimer = 10; //Ability lasts 10 seconds
+
+        }
+        //If RAPIDFIRE
         if (collision.gameObject.CompareTag("RapidFire"))
         {
-            //Give player Rapid Fire
-            hasRapidFire = true;
+            //==
+            //Add score
             //Get Weighted Value (based off time) and amount of collectables collected
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
             //Update the Score
             GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
             //Destroy the GameObject
             collision.GetComponent<Collectables>().destroyCollectable();
+            //==
+
+            //Give player Rapid Fire
+            hasRapidFire = true;
+            rapidFireTimer = 10; //Ability lasts 10 seconds
+
         }
-        if (collision.gameObject.CompareTag("Nuke"))
-        {
-            int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
-            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
-            collision.GetComponent<Collectables>().destroyCollectable();
-        }
-        //else if (collectable 3)
-        //else if (collectable 4)
+
+        //if (collectable 4)
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,8 +120,39 @@ public class PlayerController : MonoBehaviour
         //If the player runs into an enemy, game over
         if(collision.gameObject.CompareTag("Enemy"))
         {
-            //end game because i just hit an enemy
             gm.setGameOver(true);
+        }
+    }
+
+    //=============
+    //Ability Stuff
+    private void timeSlow()
+    {
+        if (timeSlowTimer >= 0)
+        {
+            Time.timeScale = 0.5f;
+            timeSlowTimer -= Time.deltaTime;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            hasTimeSlow = false;
+        }
+    }
+
+    private void rapidFire()
+    {
+        if (rapidFireTimer >= 0)
+        {
+            //change firerate
+
+            rapidFireTimer -= Time.deltaTime;
+        }
+        else
+        {
+            //change firerate back
+
+            hasRapidFire = false;
         }
     }
 }

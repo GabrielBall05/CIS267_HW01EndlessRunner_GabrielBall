@@ -12,6 +12,7 @@ TagManager:
   - BasicEnemy
   - Enemy
   - ZigZagEnemy
+  - TimeSlow
   layers:
   - Default
   - TransparentFX

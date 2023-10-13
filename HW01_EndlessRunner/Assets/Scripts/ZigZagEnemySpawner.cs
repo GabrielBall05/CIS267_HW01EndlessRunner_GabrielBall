@@ -25,8 +25,6 @@ public class ZigZagEnemySpawner : MonoBehaviour
 
         enemy.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
         //===
-
-        spawnZigZagEnemies();
     }
 
     // Update is called once per frame

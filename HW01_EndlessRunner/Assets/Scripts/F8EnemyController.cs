@@ -8,7 +8,7 @@ public class F8EnemyController : MonoBehaviour
     private Vector3 startPos;
     private float timer = 0f;
 
-    //Determined in unity editor (5, 1.5, 0.25)
+    //Determined in unity editor (5, 1, 0.5)
     public float speed;
     public float xScale;
     public float yScale;
@@ -16,7 +16,7 @@ public class F8EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //startPos = transform.position;
+
     }
 
     // Update is called once per frame
@@ -27,24 +27,13 @@ public class F8EnemyController : MonoBehaviour
 
     private void moveEnemy()
     {
-        //if (timer <= 6f)
-        //{
-        //    timer += Time.deltaTime;
-        //    transform.Translate(Vector2.down * Time.deltaTime);
-
-        //    startPos = transform.position;
-        //}
-        //else
-        //{
-        //    //This will not fall, only move in figure 8 and shoot at you (Formula off internet)
-        //    transform.position = startPos + (Vector3.right * Mathf.Sin(Time.timeSinceLevelLoad / 2 * speed) * xScale - Vector3.up * Mathf.Sin(Time.timeSinceLevelLoad * speed) * yScale);
-        //}
-
+        //Will fall down for 6 seconds first (to get on screen)
         if (timer >= 6f)
         {
             //This will not fall, only move in figure 8 and shoot at you (Formula off internet)
             transform.position = startPos + (Vector3.right * Mathf.Sin(Time.timeSinceLevelLoad / 2 * speed) * xScale - Vector3.up * Mathf.Sin(Time.timeSinceLevelLoad * speed) * yScale);
         }
+        //Then will start doing figure 8
         else
         {
             timer += Time.deltaTime;
@@ -54,20 +43,5 @@ public class F8EnemyController : MonoBehaviour
         }
 
 
-    }
-
-    public void setSpeed(float s)
-    {
-        speed = s;
-    }
-
-    public void setXScale(float x)
-    {
-        xScale = x;
-    }
-
-    public void setYScale(float y)
-    {
-        yScale = y;
     }
 }

@@ -43,7 +43,7 @@ public class Collectables : MonoBehaviour
         //Get the time from GameManager
         int time = (int)GetComponent<GameManager>().getTime();
         //Basic lil formula, might change later
-        int weightedValue = (collectableValue * (time / 2)) / 10;
+        int weightedValue = (collectableValue * (time / 10));
 
         return weightedValue;
     }

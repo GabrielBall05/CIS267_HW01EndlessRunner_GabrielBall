@@ -25,8 +25,6 @@ public class BasicEnemySpawner : MonoBehaviour
 
         enemy.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
         //===
-
-        spawnBasicEnemies();
     }
 
     // Update is called once per frame
