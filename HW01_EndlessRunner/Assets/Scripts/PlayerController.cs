@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject GameManager;
     private GameManager gm;
+
+    private int x = 1;
     
 
     void Start()
@@ -90,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
             //Give player TimeSlow
             hasTimeSlow = true;
-            timeSlowTimer = 10; //Ability lasts 10 seconds
+            timeSlowTimer = 5; //Ability lasts 10 seconds because it halved the speed of everything, including time
 
         }
         //If RAPIDFIRE
@@ -130,13 +132,34 @@ public class PlayerController : MonoBehaviour
     {
         if (timeSlowTimer >= 0)
         {
-            Time.timeScale = 0.5f;
+            //Only want to do this if the game is not over. Otherwise, game will still play in the background of GameOverMenu
+            if (gm.getGameOver() == false)
+            {
+                //Drop time scale to half speed
+                Time.timeScale = 0.5f;
+            }
+
+            //I only want to execute these statements once
+            if (x == 1)
+            {
+                //Double movement speed to compensate
+                movementSpeed = movementSpeed * 2;
+                //Double player projectile speed to compensate
+
+                x = 2;
+            }
+
+            //Decrement timer
             timeSlowTimer -= Time.deltaTime;
         }
         else
         {
+            //Reset
             Time.timeScale = 1;
+
+            movementSpeed = movementSpeed / 2;
             hasTimeSlow = false;
+            x = 1;
         }
     }
 

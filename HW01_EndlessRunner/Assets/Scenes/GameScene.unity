@@ -3262,7 +3262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1141999200130b44d86634d5d7b6f011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectableLocations:
+  spawnLocations:
   - {fileID: 797596039}
   - {fileID: 720970770}
   - {fileID: 1721666733}
@@ -3279,9 +3279,10 @@ MonoBehaviour:
   - {fileID: 1019048183}
   - {fileID: 491546763}
   - {fileID: 1261520504}
-  Nuke: {fileID: 6219031894239648172, guid: 5c14af8e2bd99dc46b4ca87307d8b49c, type: 3}
-  TimeSlow: {fileID: 253753614947570614, guid: 4da2680fe39b9e0478760da0c94a2848, type: 3}
-  RapidFire: {fileID: 8770940649706217882, guid: a0362372bf57f804fa1fd9f2e782e1ef, type: 3}
+  collectables:
+  - {fileID: 6219031894239648172, guid: 5c14af8e2bd99dc46b4ca87307d8b49c, type: 3}
+  - {fileID: 253753614947570614, guid: 4da2680fe39b9e0478760da0c94a2848, type: 3}
+  - {fileID: 8770940649706217882, guid: a0362372bf57f804fa1fd9f2e782e1ef, type: 3}
 --- !u!1 &1580929701
 GameObject:
   m_ObjectHideFlags: 0
