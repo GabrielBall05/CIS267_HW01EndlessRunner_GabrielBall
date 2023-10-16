@@ -22,12 +22,6 @@ public class GameManager : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        //Always call the enemy spawners
-        GetComponent<BasicEnemySpawner>().spawnBasicEnemies();
-        GetComponent<ZigZagEnemySpawner>().spawnZigZagEnemies();
-        GetComponent<F8EnemySpawner>().spawnF8Enemies();
-        GetComponent<CollectableSpawner>().spawnCollectables();
-
     }
 
 

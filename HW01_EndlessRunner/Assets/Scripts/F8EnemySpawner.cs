@@ -13,8 +13,6 @@ public class F8EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Automatic 15 seconds between spawns
-        timeBetweenSpawns = 15f;
 
         //===
         //Spawn one in to start off with
@@ -30,7 +28,7 @@ public class F8EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        spawnF8Enemies();
     }
 
     public void spawnF8Enemies()

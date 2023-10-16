@@ -3283,6 +3283,7 @@ MonoBehaviour:
   - {fileID: 6219031894239648172, guid: 5c14af8e2bd99dc46b4ca87307d8b49c, type: 3}
   - {fileID: 253753614947570614, guid: 4da2680fe39b9e0478760da0c94a2848, type: 3}
   - {fileID: 8770940649706217882, guid: a0362372bf57f804fa1fd9f2e782e1ef, type: 3}
+  timeBetweenCollectableSpawns: 2
 --- !u!1 &1580929701
 GameObject:
   m_ObjectHideFlags: 0

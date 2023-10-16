@@ -16,8 +16,8 @@ public class Ground : MonoBehaviour
         //Enemy hit the ground (made it past player): deduct points and destroy enemy gameObject
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //Deducts 10% of total score if an enemy gets past you
-            int deduct = (int)(GetComponent<PlayerScore>().getScore() * (-0.1));
+            //Deducts 20% of total score if an enemy gets past you
+            int deduct = (int)(GetComponent<PlayerScore>().getScore() * (-0.2));
             //Debug.Log(deduct);
             //Change the negative number accordingly for if it's not deducting enough/deducting too much
 

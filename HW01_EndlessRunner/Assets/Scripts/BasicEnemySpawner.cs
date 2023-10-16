@@ -30,7 +30,7 @@ public class BasicEnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        spawnBasicEnemies();
     }
 
     public void spawnBasicEnemies()

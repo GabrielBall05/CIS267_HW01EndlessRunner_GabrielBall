@@ -30,7 +30,7 @@ public class ZigZagEnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        spawnZigZagEnemies();
     }
 
     public void spawnZigZagEnemies()

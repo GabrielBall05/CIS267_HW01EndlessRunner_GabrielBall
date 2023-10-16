@@ -13,7 +13,7 @@ public class CollectableSpawner : MonoBehaviour
     //private float timeSlowTimer = 0f;
     //private float rapidFireTimer = 0f;
     private float collectableSpawnTimer;
-    private float timeBetweenCollectableSpawns;
+    public float timeBetweenCollectableSpawns;
     ////Time between spawns for Nuke (90s)
     //private float timeBetweenNukeSpawns;
     ////Time between spawns for TimeSlow (60s)
@@ -27,7 +27,6 @@ public class CollectableSpawner : MonoBehaviour
         //timeBetweenNukeSpawns = 90f;
         //timeBetweenTimeSlowSpawns = 60f;
         //timeBetweenRapidFireSpawns = 45f;
-        timeBetweenCollectableSpawns = 2f;
 
         //I won't start off with any collectables
     }
@@ -35,7 +34,7 @@ public class CollectableSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        spawnCollectables();
     }
 
     public void spawnCollectables()
