@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("pew pew");
+            Debug.Log("pew pew from player");
             //pew pew
         }
         if (hasRapidFire && Input.GetKey(KeyCode.Space))
