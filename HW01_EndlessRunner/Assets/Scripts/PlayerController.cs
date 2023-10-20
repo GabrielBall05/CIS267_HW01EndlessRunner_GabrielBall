@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     private float inputHorizontal;
 
-    public int numCollectablesCollected;
+    private int numCollectablesCollected;
     //Player ability bools
     private bool hasRapidFire = false;
     private bool hasTimeSlow = false;
@@ -28,13 +28,14 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Start");
         playerRigidBody = GetComponent<Rigidbody2D>();
         gm = GameManager.GetComponent<GameManager>();
+
+        numCollectablesCollected = 0;
     }
 
     void Update()
     {
         //Debug.Log("Update");
         movementHorizontal();
-        shoot();
 
         //Ability stuff
         if (hasTimeSlow)
@@ -43,23 +44,10 @@ public class PlayerController : MonoBehaviour
         }
         if (hasRapidFire)
         {
-            //rapidFire();
+            rapidFire();
         }
     }
 
-    private void shoot()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("pew pew from player");
-            //pew pew
-        }
-        if (hasRapidFire && Input.GetKey(KeyCode.Space))
-        {
-            //ppppppppppppeeeeeeeeeeeeeewwwwwwwwwwwwwww
-            Debug.Log("Pressing and Holding");
-        }
-    }
     
     private void movementHorizontal()
     {
@@ -77,17 +65,26 @@ public class PlayerController : MonoBehaviour
         {
             //Add Score
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
-            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            gm.addToTotalPlayerScore(thisCollectableValue);
             collision.GetComponent<Collectables>().destroyCollectable();
 
             //Ability Stuff
+            //Array to store objects to destroy
+            GameObject[] destroyObjects;
+            //Finds all game objects with the tag "enemy" and returns all of them in an array
+            destroyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+            //Cycle through the array to destroy all those game objects
+            for(int i = 0; i < destroyObjects.Length; i++)
+            {
+                Destroy(destroyObjects[i]);
+            }
         }
         //If TIMESLOW
         if (collision.gameObject.CompareTag("TimeSlow"))
         {
             //Add Score
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
-            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            gm.addToTotalPlayerScore(thisCollectableValue);
             collision.GetComponent<Collectables>().destroyCollectable();
 
             //Give player TimeSlow
@@ -103,7 +100,7 @@ public class PlayerController : MonoBehaviour
             //Get Weighted Value (based off time) and amount of collectables collected
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
             //Update the Score
-            GetComponent<PlayerScore>().setPlayerScore(thisCollectableValue);
+            gm.addToTotalPlayerScore(thisCollectableValue);
             //Destroy the GameObject
             collision.GetComponent<Collectables>().destroyCollectable();
             //==
@@ -122,6 +119,7 @@ public class PlayerController : MonoBehaviour
         //If the player runs into an enemy, game over
         if(collision.gameObject.CompareTag("Enemy"))
         {
+            gm.setTotalPlayerScoreOnGameEnd(0);
             gm.setGameOver(true);
         }
     }
@@ -144,7 +142,10 @@ public class PlayerController : MonoBehaviour
             {
                 //Double movement speed to compensate
                 movementSpeed = movementSpeed * 2;
-                //Double player projectile speed to compensate
+                //Double projectile speed to compensate
+
+                //Double firerate to compensaet
+                GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() / 2);
 
                 x = 2;
             }
@@ -158,6 +159,7 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 1;
 
             movementSpeed = movementSpeed / 2;
+            GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() * 2);
             hasTimeSlow = false;
             x = 1;
         }
@@ -167,13 +169,19 @@ public class PlayerController : MonoBehaviour
     {
         if (rapidFireTimer >= 0)
         {
-            //change firerate
+            //change firerate to a set value of 0.1 (10 bullets per second)
+            GetComponentInChildren<FireWeapon>().setFireRate(0.1f);
+
+
+            GetComponentInChildren<FireWeapon>().fireRapidly();
+            
 
             rapidFireTimer -= Time.deltaTime;
         }
         else
         {
-            //change firerate back
+            //change firerate back to default (0.25)
+            GetComponentInChildren<FireWeapon>().setFireRate(0.25f);
 
             hasRapidFire = false;
         }

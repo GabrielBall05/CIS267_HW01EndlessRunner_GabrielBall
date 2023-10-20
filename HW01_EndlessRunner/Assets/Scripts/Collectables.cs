@@ -52,7 +52,7 @@ public class Collectables : MonoBehaviour
     {
         if (collectableRigidBody.position.y <= -5.242)
         {
-            Debug.Log("Collectable Hit Floor");
+            //Debug.Log("Collectable Hit Floor");
             destroyCollectable();
         }
     }

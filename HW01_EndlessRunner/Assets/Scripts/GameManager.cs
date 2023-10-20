@@ -10,18 +10,28 @@ public class GameManager : MonoBehaviour
     //I want game manager to keep track of time
     private float time;
 
+    //Game manager also keeps track of player score
+    private static float totalPlayerScore;
+    private static bool b = true;
+
     // Start is called before the first frame update
     void Start()
     {
         setGameOver(false);
         time = 0;
+
+        //I need to do this or else it keeps reseting my score to 0. Probably because Gamemanager script is open in multiple areas
+        if (b)
+        {
+            totalPlayerScore = 0;
+            b = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-
     }
 
 
@@ -51,6 +61,26 @@ public class GameManager : MonoBehaviour
     }
     //Game Over Stuff
     //===============
+
+    //===========
+    //Score Stuff
+    public void addToTotalPlayerScore(float s)
+    {
+        totalPlayerScore += s;
+        //Debug.Log(totalPlayerScore);
+    }
+
+    public float getTotalPlayerScore()
+    {
+        return totalPlayerScore;
+    }
+
+    public void setTotalPlayerScoreOnGameEnd(float s)
+    {
+        totalPlayerScore = s;
+    }
+    //Score Stuff
+    //===========
 
     public float getTime()
     {

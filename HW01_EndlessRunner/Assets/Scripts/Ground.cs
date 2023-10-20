@@ -17,12 +17,12 @@ public class Ground : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             //Deducts 20% of total score if an enemy gets past you
-            int deduct = (int)(GetComponent<PlayerScore>().getScore() * (-0.2));
+            int deduct = (int)(GetComponent<GameManager>().getTotalPlayerScore() * (-0.2));
             //Debug.Log(deduct);
             //Change the negative number accordingly for if it's not deducting enough/deducting too much
 
             //Set player score from the PlayerScore.cs script that we have access to because the script is also attached to enemies
-            GetComponent<PlayerScore>().setPlayerScore(deduct);
+            GetComponent<GameManager>().addToTotalPlayerScore(deduct);
 
             Destroy(collision.gameObject);
         }

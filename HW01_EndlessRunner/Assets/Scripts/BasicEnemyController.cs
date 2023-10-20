@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BasicEnemyController : MonoBehaviour
 {
+    //150
+    public float health;
+    public float pointsForKilling;
+
     public float fallingSpeed; //1
 
     // Start is called before the first frame update
@@ -16,6 +20,7 @@ public class BasicEnemyController : MonoBehaviour
     void Update()
     {
         moveEnemy();
+        isDead();
     }
 
     private void moveEnemy()
@@ -25,8 +30,25 @@ public class BasicEnemyController : MonoBehaviour
         transform.Translate(Vector2.left * fallingSpeed * Time.deltaTime);
     }
 
-    public void destroyEnemy()
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
+            health -= 50;
+        }
+    }
+
+    private void isDead()
+    {
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+
+            //Add "pointsForKilling" value to player score
+            GetComponent<GameManager>().addToTotalPlayerScore(pointsForKilling);
+        }
     }
 }

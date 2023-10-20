@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ZigZagEnemyController : MonoBehaviour
 {
+    //250
+    public float health;
+    public float pointsForKilling;
+
     //3
     public float movementSpeed;
     //1.5
@@ -30,6 +34,7 @@ public class ZigZagEnemyController : MonoBehaviour
         //Moves down in a zig zag
         moveEnemyLateral();
         moveEnemyDown();
+        isDead();
     }
 
     private void moveEnemyLateral()
@@ -71,6 +76,23 @@ public class ZigZagEnemyController : MonoBehaviour
         else if (collision.gameObject.name.Equals("Wall2"))
         {
             hitRightWall = true;
+        }
+
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
+            health -= 50;
+        }
+    }
+
+    private void isDead()
+    {
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+
+            //Add "pointsForKilling" value to player score
+            GetComponent<GameManager>().addToTotalPlayerScore(pointsForKilling);
         }
     }
 }

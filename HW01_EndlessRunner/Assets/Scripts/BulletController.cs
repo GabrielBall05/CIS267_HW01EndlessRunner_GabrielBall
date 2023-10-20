@@ -26,4 +26,9 @@ public class BulletController : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+    public void doubleBulletSpeed()
+    {
+        bulletSpeed *= 2;
+    }
 }

@@ -5,6 +5,10 @@ using UnityEngine.UIElements;
 
 public class F8EnemyController : MonoBehaviour
 {
+    //500
+    public float health;
+    public float pointsForKilling;
+
     private Vector3 startPos;
     private float timer = 0f;
 
@@ -23,6 +27,7 @@ public class F8EnemyController : MonoBehaviour
     void Update()
     {
         moveEnemy();
+        isDead();
     }
 
     private void moveEnemy()
@@ -43,5 +48,25 @@ public class F8EnemyController : MonoBehaviour
         }
 
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
+            health -= 50;
+        }
+    }
+
+    private void isDead()
+    {
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+
+            //Add "pointsForKilling" value to player score
+            GetComponent<GameManager>().addToTotalPlayerScore(pointsForKilling);
+        }
     }
 }

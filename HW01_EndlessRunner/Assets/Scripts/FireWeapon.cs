@@ -8,13 +8,13 @@ public class FireWeapon : MonoBehaviour
     public Transform muzzle;
 
     private float timeBetweenShots;
-    public float fireRate;
+    private float fireRate;
     private bool canFire = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        fireRate = 0.25f;
     }
 
     // Update is called once per frame
@@ -30,8 +30,9 @@ public class FireWeapon : MonoBehaviour
             timeBetweenShots -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
+            //Debug.Log("ppppeeeewwww");
             if (canFire)
             {
                 canFire = false;
@@ -43,5 +44,28 @@ public class FireWeapon : MonoBehaviour
     private void shoot()
     {
         Instantiate(bullet, muzzle.position, transform.rotation);
+    }
+
+    public void fireRapidly()
+    {
+        if (timeBetweenShots <= 0)
+        {
+            timeBetweenShots = fireRate;
+            canFire = true;
+        }
+        else
+        {
+            timeBetweenShots -= Time.deltaTime;
+        }
+    }
+
+    public void setFireRate(float f)
+    {
+        fireRate = f;
+    }
+
+    public float getFireRate()
+    {
+        return fireRate;
     }
 }
