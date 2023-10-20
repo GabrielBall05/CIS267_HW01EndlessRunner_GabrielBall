@@ -40,7 +40,7 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    void shoot()
+    private void shoot()
     {
         Instantiate(bullet, muzzle.position, transform.rotation);
     }

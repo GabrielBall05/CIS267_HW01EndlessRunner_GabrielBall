@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMovement : MonoBehaviour
+public class BulletController : MonoBehaviour
 {
     public float bulletDamage;
     public float bulletSpeed;
@@ -22,7 +22,7 @@ public class BulletMovement : MonoBehaviour
         transform.Translate(transform.up * bulletSpeed  * Time.deltaTime * (-1));
     }
 
-    void destroyBullet()
+    public void destroyBullet()
     {
         Destroy(this.gameObject);
     }
