@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour
         //If the player runs into an enemy, game over
         if(collision.gameObject.CompareTag("Enemy"))
         {
-            gm.setTotalPlayerScoreOnGameEnd(0);
             gm.setGameOver(true);
         }
     }

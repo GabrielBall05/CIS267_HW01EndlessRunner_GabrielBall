@@ -7,7 +7,9 @@ public class GameOverMenu : MonoBehaviour
 {
     public GameObject gameManager;
     public GameObject gameOverMenu;
+    public GameObject highScoresMenu;
     private GameManager gm;
+    private bool highScoresButtonClicked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,7 @@ public class GameOverMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gm.getGameOver())
+        if (gm.getGameOver() && !highScoresButtonClicked)
         {
             showGameOverMenu();
         }
@@ -38,8 +40,12 @@ public class GameOverMenu : MonoBehaviour
 
     public void viewHighScoresButtonClick()
     {
+        highScoresButtonClicked = true;
         //view high scores
+        gameOverMenu.SetActive(false);
+        highScoresMenu.SetActive(true);
     }
+
 
     public void exitGameButtonClick()
     {
