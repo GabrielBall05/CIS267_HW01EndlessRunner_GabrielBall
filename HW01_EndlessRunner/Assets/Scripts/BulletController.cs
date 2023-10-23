@@ -13,22 +13,31 @@ public class BulletController : MonoBehaviour
     {
         Invoke("destroyBullet", bulletLife);
         //I needed to do this for some reason to rotate the bullet even though the prefab is rotated already
-        transform.Rotate(0, 0, -90);
+        if (gameObject.CompareTag("Bullet"))
+        {
+            transform.Rotate(0, 0, -90);
+        }
+        else if (gameObject.CompareTag("EnemyBullet"))
+        {
+            transform.Rotate(0, 0, 90);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.up * bulletSpeed  * Time.deltaTime * (-1));
+        if (gameObject.CompareTag("Bullet"))
+        {
+            transform.Translate(transform.up * bulletSpeed * Time.deltaTime * (-1));
+        }
+        if (gameObject.CompareTag("EnemyBullet"))
+        {
+            transform.Translate(transform.up * bulletSpeed * Time.deltaTime);
+        }
     }
 
     public void destroyBullet()
     {
         Destroy(this.gameObject);
-    }
-
-    public void doubleBulletSpeed()
-    {
-        bulletSpeed *= 2;
     }
 }

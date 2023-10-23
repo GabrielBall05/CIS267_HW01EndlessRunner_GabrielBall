@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidBody;
     public float movementSpeed;
     private float inputHorizontal;
+    public int health; //250
 
     private int numCollectablesCollected;
     //Player ability bools
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Update");
         movementHorizontal();
+        noHealth();
 
         //Ability stuff
         if (hasTimeSlow)
@@ -70,13 +72,20 @@ public class PlayerController : MonoBehaviour
 
             //Ability Stuff
             //Array to store objects to destroy
-            GameObject[] destroyObjects;
+            GameObject[] destroyEnemies;
             //Finds all game objects with the tag "enemy" and returns all of them in an array
-            destroyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+            destroyEnemies = GameObject.FindGameObjectsWithTag("Enemy");
             //Cycle through the array to destroy all those game objects
-            for(int i = 0; i < destroyObjects.Length; i++)
+            for(int i = 0; i < destroyEnemies.Length; i++)
             {
-                Destroy(destroyObjects[i]);
+                Destroy(destroyEnemies[i]);
+            }
+
+            GameObject[] destroyBullets;
+            destroyBullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
+            for (int i = 0; i < destroyBullets.Length; i++)
+            {
+                Destroy(destroyBullets[i]);
             }
         }
         //If TIMESLOW
@@ -121,6 +130,12 @@ public class PlayerController : MonoBehaviour
         {
             gm.setGameOver(true);
         }
+        //If the figure 8 enemy hits me with one of it's bullets, deduct 50 healht
+        if(collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            Destroy(collision.gameObject);
+            deductPlayerHealth(50);
+        }
     }
 
     //=============
@@ -141,9 +156,7 @@ public class PlayerController : MonoBehaviour
             {
                 //Double movement speed to compensate
                 movementSpeed = movementSpeed * 2;
-                //Double projectile speed to compensate
-
-                //Double firerate to compensaet
+                //Double firerate to compensate
                 GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() / 2);
 
                 x = 2;
@@ -156,7 +169,6 @@ public class PlayerController : MonoBehaviour
         {
             //Reset
             Time.timeScale = 1;
-
             movementSpeed = movementSpeed / 2;
             GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() * 2);
             hasTimeSlow = false;
@@ -168,13 +180,11 @@ public class PlayerController : MonoBehaviour
     {
         if (rapidFireTimer >= 0)
         {
-            //change firerate to a set value of 0.1 (10 bullets per second)
-            GetComponentInChildren<FireWeapon>().setFireRate(0.1f);
-
+            //change firerate to a set value of 0.15 (about 7 bullets per second)
+            GetComponentInChildren<FireWeapon>().setFireRate(0.15f);
 
             GetComponentInChildren<FireWeapon>().fireRapidly();
             
-
             rapidFireTimer -= Time.deltaTime;
         }
         else
@@ -183,6 +193,22 @@ public class PlayerController : MonoBehaviour
             GetComponentInChildren<FireWeapon>().setFireRate(0.25f);
 
             hasRapidFire = false;
+        }
+    }
+    //Ability Stuff
+    //=============
+
+    //If player hits bullet, deduct 50 health
+    private void deductPlayerHealth(int d)
+    {
+        health -= d;
+    }
+
+    private void noHealth()
+    {
+        if (health <= 0)
+        {
+            gm.setGameOver(true);
         }
     }
 }

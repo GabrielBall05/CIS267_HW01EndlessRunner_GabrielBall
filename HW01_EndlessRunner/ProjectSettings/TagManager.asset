@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - TimeSlow
   - Bullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
