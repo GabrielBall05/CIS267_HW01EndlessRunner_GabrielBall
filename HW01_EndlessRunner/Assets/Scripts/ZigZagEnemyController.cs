@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ZigZagEnemyController : MonoBehaviour
 {
-    //250
+    [SerializeField] HealthBar hb;
+
+    public float maxHealth; //250
     public float health;
     public float pointsForKilling;
 
@@ -26,6 +28,9 @@ public class ZigZagEnemyController : MonoBehaviour
         startPosX = transform.position.x;
         hitLeftWall = false;
         hitRightWall = false;
+
+        hb = GetComponentInChildren<HealthBar>();
+        hb.updateHealthbar(health, maxHealth);
     }
 
     // Update is called once per frame
@@ -82,6 +87,7 @@ public class ZigZagEnemyController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             health -= 50;
+            hb.updateHealthbar(health, maxHealth);
         }
     }
 

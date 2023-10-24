@@ -5,7 +5,9 @@ using UnityEngine.UIElements;
 
 public class F8EnemyController : MonoBehaviour
 {
-    //500
+    [SerializeField] HealthBar hb;
+
+    public float maxHealth; //650
     public float health;
     public float pointsForKilling;
 
@@ -20,7 +22,8 @@ public class F8EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        hb = GetComponentInChildren<HealthBar>();
+        hb.updateHealthbar(health, maxHealth);
     }
 
     // Update is called once per frame
@@ -56,6 +59,7 @@ public class F8EnemyController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             health -= 50;
+            hb.updateHealthbar(health, maxHealth);
         }
     }
 

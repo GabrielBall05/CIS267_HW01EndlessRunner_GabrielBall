@@ -7,7 +7,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidBody;
     public float movementSpeed;
     private float inputHorizontal;
-    public int health; //250
+    public int maxHealth; //250
+    public int health;
+
+    [SerializeField] HealthBar hb;
 
     private int numCollectablesCollected;
     //Player ability bools
@@ -29,6 +32,8 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Start");
         playerRigidBody = GetComponent<Rigidbody2D>();
         gm = GameManager.GetComponent<GameManager>();
+        hb = GetComponentInChildren<HealthBar>();
+        hb.updateHealthbar(health, maxHealth);
 
         numCollectablesCollected = 0;
     }
@@ -135,6 +140,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             deductPlayerHealth(50);
+            hb.updateHealthbar(health, maxHealth);
         }
     }
 

@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class BasicEnemyController : MonoBehaviour
 {
-    //150
+    public float maxHealth; //150
     public float health;
     public float pointsForKilling;
 
     public float fallingSpeed; //1
 
+    [SerializeField] HealthBar hb;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        hb = GetComponentInChildren<HealthBar>();
+        hb.updateHealthbar(health, maxHealth);
     }
 
     // Update is called once per frame
@@ -38,6 +41,7 @@ public class BasicEnemyController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             health -= 50;
+            hb.updateHealthbar(health, maxHealth);
         }
     }
 
