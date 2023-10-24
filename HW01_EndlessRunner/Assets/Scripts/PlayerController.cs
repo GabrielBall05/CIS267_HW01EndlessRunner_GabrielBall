@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             gm.setGameOver(true);
         }
-        //If the figure 8 enemy hits me with one of it's bullets, deduct 50 healht
+        //If the figure 8 enemy hits me with one of it's bullets, deduct 50 health
         if(collision.gameObject.CompareTag("EnemyBullet"))
         {
             Destroy(collision.gameObject);

@@ -814,8 +814,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: HW01_EndlessRunner
-  metroPackageVersion: 
+  metroPackageName: HW01EndlessRunner
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -823,7 +823,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: HW01_EndlessRunner
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: HW01_EndlessRunner
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

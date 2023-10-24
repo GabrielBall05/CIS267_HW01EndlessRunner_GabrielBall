@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private float time;
     
     //Game manager also keeps track of player score
-    private static float totalPlayerScore;
+    private static float totalPlayerScore = 0;
     private static bool b = true;
 
     private List<int> highScores = new List<int>();
@@ -26,11 +26,11 @@ public class GameManager : MonoBehaviour
         time = 0;
 
         //I need to do this or else it keeps reseting my score to 0. Probably because Gamemanager script is open in multiple areas
-        if (b)
-        {
-            totalPlayerScore = 0;
-            b = false;
-        }
+        //if (b)
+        //{
+        //    totalPlayerScore = 0;
+        //    b = false;
+        //}
     }
 
     // Update is called once per frame
