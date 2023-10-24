@@ -6,29 +6,14 @@ public class CollectableSpawner : MonoBehaviour
 {
     public GameObject[] spawnLocations;
     public GameObject[] collectables;
-    //public GameObject Nuke;
-    //public GameObject TimeSlow;
-    //public GameObject RapidFire;
-    //private float nukeTimer = 0f;
-    //private float timeSlowTimer = 0f;
-    //private float rapidFireTimer = 0f;
+
     private float collectableSpawnTimer;
-    public float timeBetweenCollectableSpawns;
-    ////Time between spawns for Nuke (90s)
-    //private float timeBetweenNukeSpawns;
-    ////Time between spawns for TimeSlow (60s)
-    //private float timeBetweenTimeSlowSpawns;
-    ////Time between spawns for RapidFire (45s)
-    //private float timeBetweenRapidFireSpawns;
+    public float timeBetweenSpawns;
 
     // Start is called before the first frame update
     void Start()
     {
-        //timeBetweenNukeSpawns = 90f;
-        //timeBetweenTimeSlowSpawns = 60f;
-        //timeBetweenRapidFireSpawns = 45f;
 
-        //I won't start off with any collectables
     }
 
     // Update is called once per frame
@@ -40,14 +25,19 @@ public class CollectableSpawner : MonoBehaviour
     public void spawnCollectables()
     {
         //Spawns random collectable at random location every 30 seconds
-        if (collectableSpawnTimer <= timeBetweenCollectableSpawns)
+
+        //If timer hasn't reached the value of the timer (30s)
+        if (collectableSpawnTimer <= timeBetweenSpawns)
         {
+            //Increment timer
             collectableSpawnTimer += Time.deltaTime;
         }
-        else
+        else //It has reached the timer value (30s)
         {
+            //Reset
             collectableSpawnTimer = 0;
 
+            //Make new random collectable spawn at random location
             int randomIndexCollectable;
             int randomIndexSpawnLoc;
             GameObject spawnedCollectable;
@@ -59,59 +49,5 @@ public class CollectableSpawner : MonoBehaviour
 
             spawnedCollectable.transform.position = new Vector2(spawnLocations[randomIndexSpawnLoc].transform.position.x, spawnLocations[randomIndexSpawnLoc].transform.position.y);
         }
-
-
-
-
-        ////Waits 90 seconds to spawn Nuke
-        //if (nukeTimer <= timeBetweenNukeSpawns)
-        //{
-        //    nukeTimer += Time.deltaTime;
-        //}
-        //else
-        //{
-        //    nukeTimer = 0f;
-
-        //    int randomIndex;
-        //    randomIndex = Random.Range(0, spawnLocations.Length);
-
-        //    Instantiate(Nuke.gameObject);
-
-        //    Nuke.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
-        //}
-
-        ////Waits 60 seconds to spawn TimeSlow
-        //if (timeSlowTimer <= timeBetweenTimeSlowSpawns)
-        //{
-        //    timeSlowTimer += Time.deltaTime;
-        //}
-        //else
-        //{
-        //    timeSlowTimer = 0f;
-
-        //    int randomIndex;
-        //    randomIndex = Random.Range(0, spawnLocations.Length);
-
-        //    Instantiate(TimeSlow.gameObject);
-
-        //    TimeSlow.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
-        //}
-
-        ////Waits 45 seconds to spawn RapidFire
-        //if (rapidFireTimer <= timeBetweenRapidFireSpawns)
-        //{
-        //    rapidFireTimer += Time.deltaTime;
-        //}
-        //else
-        //{
-        //    rapidFireTimer = 0f;
-
-        //    int randomIndex;
-        //    randomIndex = Random.Range(0, spawnLocations.Length);
-
-        //    Instantiate(RapidFire.gameObject);
-
-        //    RapidFire.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
-        //}
     }
 }

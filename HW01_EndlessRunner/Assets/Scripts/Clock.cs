@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
+    //This script is only for the timer text at the top left and nothing else
     private TMP_Text timeGUI;
 
-    //Clock doesn't actually keep track of time, but GameManager does
-    //This script is really just to update the timer in the top left corner
+    //GameManger keeps track of time, not this script
     public GameObject GameManager;
     private GameManager gm;
 

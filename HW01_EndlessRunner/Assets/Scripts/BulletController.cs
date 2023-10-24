@@ -19,6 +19,7 @@ public class BulletController : MonoBehaviour
         }
         else if (gameObject.CompareTag("EnemyBullet"))
         {
+            //Rotate the other way since enemy will be shooting down instead of up like the player
             transform.Rotate(0, 0, 90);
         }
     }
@@ -28,14 +29,23 @@ public class BulletController : MonoBehaviour
     {
         if (gameObject.CompareTag("Bullet"))
         {
+            //-1 goes up with my configuration
             transform.Translate(transform.up * bulletSpeed * Time.deltaTime * (-1));
         }
         if (gameObject.CompareTag("EnemyBullet"))
         {
+            //Goes down with my configuration
             transform.Translate(transform.up * bulletSpeed * Time.deltaTime);
         }
     }
 
+    public float getBulletDamage()
+    {
+        return bulletDamage;
+    }
+
+    //Don't delete
+    //It's for Line 14: Invoke("destr...) to destroy the bullet after it reaches its life span
     public void destroyBullet()
     {
         Destroy(this.gameObject);

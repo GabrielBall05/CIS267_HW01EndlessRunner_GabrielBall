@@ -7,15 +7,11 @@ public class ZigZagEnemySpawner : MonoBehaviour
     public GameObject[] spawnLocations;
     public GameObject enemy;
     private float timer = 0f;
-    //Start value: 8, Getter and Setter to change via time slow collectable (double the value)
     public float timeBetweenSpawns;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Automatic 5 seconds between spawns
-        timeBetweenSpawns = 8f;
-
         //===
         //Spawn one in to start off with
         int randomIndex;
@@ -35,15 +31,17 @@ public class ZigZagEnemySpawner : MonoBehaviour
 
     public void spawnZigZagEnemies()
     {
-        //Waits 8 seconds then spawns zig zag enemy. Will do forever
+        //Waits "timeBetweenSpawns" seconds then spawns zig zag enemy. Will do forever
         if (timer <= timeBetweenSpawns)
         {
             timer += Time.deltaTime;
         }
         else
         {
+            //Reset
             timer = 0f;
 
+            //Spawns in at random spawn location
             int randomIndex;
             randomIndex = Random.Range(0, spawnLocations.Length);
 
@@ -53,12 +51,7 @@ public class ZigZagEnemySpawner : MonoBehaviour
         }
     }
 
-    public float getZigZagEnemyTimeBetweenSpawns()
-    {
-        return timeBetweenSpawns;
-    }
-
-    public void setZigZagEnemyTimeBetweenSpawns(float t)
+    public void setTimeBetweenSpawns(float t)
     {
         timeBetweenSpawns = t;
     }

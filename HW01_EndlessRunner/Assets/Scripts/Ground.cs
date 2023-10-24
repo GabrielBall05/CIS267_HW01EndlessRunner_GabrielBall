@@ -10,20 +10,30 @@ public class Ground : MonoBehaviour
 
     }
 
-    //If an enemy gets past player/hits me (the ground):
+    //If an enemy gets past player/enemy hits the ground:
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Enemy hit the ground (made it past player): deduct points and destroy enemy gameObject
+        //Enemy hit the ground (made it past player):
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //Deducts 20% of total score if an enemy gets past you
+            //Deducts 20% of total score
+            //Change the negative number accordingly for if it's not deducting enough/deducting too much
             int deduct = (int)(GetComponent<GameManager>().getTotalPlayerScore() * (-0.2));
             //Debug.Log(deduct);
-            //Change the negative number accordingly for if it's not deducting enough/deducting too much
 
-            //Set player score from the PlayerScore.cs script that we have access to because the script is also attached to enemies
+            //Add deduct to totalPlayerScore in GameManager (adds negative number so it really subtracts)
             GetComponent<GameManager>().addToTotalPlayerScore(deduct);
 
+            //Destroy enemy
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //If a trigger (collectable) hits the ground, destroy it as well
+        if (collision.gameObject.CompareTag("Nuke") || collision.gameObject.CompareTag("RapidFire") || collision.gameObject.CompareTag("TimeSlow"))
+        {
             Destroy(collision.gameObject);
         }
     }

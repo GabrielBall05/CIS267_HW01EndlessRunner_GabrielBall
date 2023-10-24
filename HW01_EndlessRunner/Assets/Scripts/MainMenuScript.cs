@@ -20,8 +20,6 @@ public class MainMenuScript : MonoBehaviour
 
     public void viewHighScoresButtonClick()
     {
-        //view high scores
-
         mainMenu.SetActive(false);
         highScoresMenu.SetActive(true);
     }

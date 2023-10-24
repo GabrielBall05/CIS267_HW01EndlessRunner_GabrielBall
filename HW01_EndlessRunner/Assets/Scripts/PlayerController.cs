@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     private float inputHorizontal;
     public int maxHealth; //250
-    public int health;
+    public float health;
 
+    //Followed tutorial for health bar stuff
     [SerializeField] HealthBar hb;
 
     private int numCollectablesCollected;
@@ -24,14 +25,15 @@ public class PlayerController : MonoBehaviour
     public GameObject GameManager;
     private GameManager gm;
 
-    private int x = 1;
-    
+    private bool x = true; //I need this for time slow
 
     void Start()
     {
         //Debug.Log("Start");
         playerRigidBody = GetComponent<Rigidbody2D>();
         gm = GameManager.GetComponent<GameManager>();
+
+        //Health bar stuff
         hb = GetComponentInChildren<HealthBar>();
         hb.updateHealthbar(health, maxHealth);
 
@@ -42,15 +44,16 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Update");
         movementHorizontal();
-        noHealth();
 
         //Ability stuff
-        if (hasTimeSlow)
+        if (hasTimeSlow) //If I have Time Slow ability:
         {
+            //Do its ability stuff
             timeSlow();
         }
-        if (hasRapidFire)
+        if (hasRapidFire)//If I have Rapid Fire ability:
         {
+            //Do its ability stuff
             rapidFire();
         }
     }
@@ -58,22 +61,25 @@ public class PlayerController : MonoBehaviour
     
     private void movementHorizontal()
     {
+        //Move player laterally
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         playerRigidBody.velocity = new Vector2(movementSpeed * inputHorizontal, playerRigidBody.velocity.y);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Increase number of collectables collected for the scoring algorithm
+        //Increase number of collectables collected first for the scoring algorithm
         numCollectablesCollected++;
 
         //If NUKE
         if (collision.gameObject.CompareTag("Nuke"))
         {
-            //Add Score
+            //Gets weighted collectable value (int Collectables script) and multiplies it by the # of collectables already collected
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
+            //Add that score
             gm.addToTotalPlayerScore(thisCollectableValue);
-            collision.GetComponent<Collectables>().destroyCollectable();
+            //Destroy it
+            Destroy(collision.gameObject);
 
             //Ability Stuff
             //Array to store objects to destroy
@@ -86,6 +92,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(destroyEnemies[i]);
             }
 
+            //Same thing with enemy bullets
             GameObject[] destroyBullets;
             destroyBullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
             for (int i = 0; i < destroyBullets.Length; i++)
@@ -99,48 +106,62 @@ public class PlayerController : MonoBehaviour
             //Add Score
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
             gm.addToTotalPlayerScore(thisCollectableValue);
-            collision.GetComponent<Collectables>().destroyCollectable();
+            //Destroy it
+            Destroy(collision.gameObject);
 
-            //Give player TimeSlow
+            //Give player Time Slow
             hasTimeSlow = true;
-            timeSlowTimer = 5; //Ability lasts 10 seconds because it halved the speed of everything, including time
-
+            timeSlowTimer = 5; //Ability lasts 10 seconds (not 5) because it halved the speed of everything, including time
         }
         //If RAPIDFIRE
         if (collision.gameObject.CompareTag("RapidFire"))
         {
-            //==
             //Add score
-            //Get Weighted Value (based off time) and amount of collectables collected
             int thisCollectableValue = collision.GetComponent<Collectables>().getCollectableWeightedValue() * numCollectablesCollected;
-            //Update the Score
             gm.addToTotalPlayerScore(thisCollectableValue);
-            //Destroy the GameObject
-            collision.GetComponent<Collectables>().destroyCollectable();
-            //==
+            //Destroy it
+            Destroy(collision.gameObject);
 
             //Give player Rapid Fire
             hasRapidFire = true;
-            rapidFireTimer = 10; //Ability lasts 10 seconds
-
+            rapidFireTimer = 10; //Ability lasts 10 seconds (Will never overlap with time slow because collectables spawn every 30s & my abilities last 10s)
         }
-
-        //if (collectable 4)
+        //If Collectable 4
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //If the player runs into an enemy, game over
+        //If the player runs into an enemy:
         if(collision.gameObject.CompareTag("Enemy"))
         {
-            gm.setGameOver(true);
+            gm.setGameOver(true); //Game over
         }
-        //If the figure 8 enemy hits me with one of it's bullets, deduct 50 health
+        //If the figure 8 enemy hits me with one of its bullets:
         if(collision.gameObject.CompareTag("EnemyBullet"))
         {
+            //Destroy bullet
             Destroy(collision.gameObject);
-            deductPlayerHealth(50);
+            //Deduct the bullet's damage from my health
+            deductPlayerHealth(collision.gameObject.GetComponent<BulletController>().getBulletDamage());
+            //Update health bar
             hb.updateHealthbar(health, maxHealth);
+
+            //check right away for whether or not I'm dead (health <= 0)
+            if (health <= 0)
+            {
+                gm.setGameOver(true); //Game over because player is dead
+            }
+
+            //-100 points for getting shot, but I don't want to go in the negatives since that
+            //would mess up the deducting of points when an enemy makes it past the player
+            if (gm.getTotalPlayerScore() > 100)
+            {
+                gm.addToTotalPlayerScore(-100);
+            }
+            else
+            {
+                gm.addToTotalPlayerScore(gm.getTotalPlayerScore() * (-1));
+            } //Will never make player score get into the negatives
         }
     }
 
@@ -153,19 +174,18 @@ public class PlayerController : MonoBehaviour
             //Only want to do this if the game is not over. Otherwise, game will still play in the background of GameOverMenu
             if (gm.getGameOver() == false)
             {
-                //Drop time scale to half speed
+                //Drop time scale to half speed for Time Slow
                 Time.timeScale = 0.5f;
             }
 
-            //I only want to execute these statements once
-            if (x == 1)
+            //I only want to execute these statements once or else it'll keep doing it every update until 10 seconds are up
+            if (x)
             {
                 //Double movement speed to compensate
                 movementSpeed = movementSpeed * 2;
                 //Double firerate to compensate
                 GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() / 2);
-
-                x = 2;
+                x = false;
             }
 
             //Decrement timer
@@ -177,8 +197,8 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 1;
             movementSpeed = movementSpeed / 2;
             GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() * 2);
-            hasTimeSlow = false;
-            x = 1;
+            hasTimeSlow = false; //Player no longer has time slow
+            x = false;
         }
     }
 
@@ -186,35 +206,25 @@ public class PlayerController : MonoBehaviour
     {
         if (rapidFireTimer >= 0)
         {
-            //change firerate to a set value of 0.15 (about 7 bullets per second)
-            GetComponentInChildren<FireWeapon>().setFireRate(0.15f);
-
-            GetComponentInChildren<FireWeapon>().fireRapidly();
+            //Change firerate to a set value of 0.08 (12.5 bullets per second)
+            GetComponentInChildren<FireWeapon>().setFireRate(0.08f);
             
+            //Decrement timer
             rapidFireTimer -= Time.deltaTime;
         }
-        else
+        else //Reset
         {
-            //change firerate back to default (0.25)
+            //Time up, change firerate back to default (0.25)
             GetComponentInChildren<FireWeapon>().setFireRate(0.25f);
-
-            hasRapidFire = false;
+            hasRapidFire = false; //Player no longer has rapid fire
         }
     }
     //Ability Stuff
     //=============
 
-    //If player hits bullet, deduct 50 health
-    private void deductPlayerHealth(int d)
+    //If player hits bullet, deduct bullet damage (50)
+    private void deductPlayerHealth(float d)
     {
         health -= d;
-    }
-
-    private void noHealth()
-    {
-        if (health <= 0)
-        {
-            gm.setGameOver(true);
-        }
     }
 }

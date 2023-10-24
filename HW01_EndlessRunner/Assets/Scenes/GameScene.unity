@@ -736,7 +736,7 @@ Transform:
   m_GameObject: {fileID: 212506444}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.45, y: 0.88, z: 11}
+  m_LocalPosition: {x: -3.493, y: 0.88, z: 11}
   m_LocalScale: {x: 0.2, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1256,18 +1256,18 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 1.9104137, y: -0.19952011}
-  - {x: 1.9039819, y: -1.0202293}
-  - {x: 1.1170244, y: -1.7002583}
-  - {x: -1.0923021, y: -1.7010441}
-  - {x: -1.98448, y: -0.9442463}
-  - {x: -1.9841675, y: -0.46348953}
+  - {x: 1.8653011, y: -0.2792511}
+  - {x: 1.9097626, y: -1.0177746}
+  - {x: 1.9685782, y: -1.7003727}
+  - {x: -2.031526, y: -1.700222}
+  - {x: -1.9834083, y: -0.94670105}
+  - {x: -1.9340371, y: -0.46348953}
   - {x: -0.49147913, y: 0.9836254}
   - {x: -0.4924393, y: 1.6367188}
   - {x: -0.011921525, y: 2.2503738}
   - {x: 0.43510416, y: 1.6325569}
   - {x: 0.44783583, y: 1.0072117}
-  - {x: 1.9104056, y: -0.19992065}
+  - {x: 1.875299, y: -0.2876873}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -3416,7 +3416,7 @@ Transform:
   m_GameObject: {fileID: 1371281339}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.41, y: 0.85, z: 11}
+  m_LocalPosition: {x: 3.475, y: 0.85, z: 11}
   m_LocalScale: {x: 0.2, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3954,7 +3954,7 @@ MonoBehaviour:
   - {fileID: 1083600245}
   - {fileID: 507999663}
   enemy: {fileID: 4003445756219612509, guid: 0b40e16023c415a448f8a4b4c79b1a8d, type: 3}
-  timeBetweenSpawns: 8
+  timeBetweenSpawns: 10
 --- !u!114 &1543290602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3972,7 +3972,7 @@ MonoBehaviour:
   - {fileID: 187601506}
   - {fileID: 585030351}
   enemy: {fileID: 6877949694499572595, guid: 75001d69d6eaa3241afb0bd789753908, type: 3}
-  timeBetweenSpawns: 15
+  timeBetweenSpawns: 25
 --- !u!114 &1543290603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4006,7 +4006,7 @@ MonoBehaviour:
   - {fileID: 6219031894239648172, guid: 5c14af8e2bd99dc46b4ca87307d8b49c, type: 3}
   - {fileID: 253753614947570614, guid: 4da2680fe39b9e0478760da0c94a2848, type: 3}
   - {fileID: 8770940649706217882, guid: a0362372bf57f804fa1fd9f2e782e1ef, type: 3}
-  timeBetweenCollectableSpawns: 2
+  timeBetweenSpawns: 30
 --- !u!114 &1543290604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5556,9 +5556,9 @@ SceneRoots:
   - {fileID: 1122930559}
   - {fileID: 1543290599}
   - {fileID: 63555488}
+  - {fileID: 564274744}
+  - {fileID: 89510066}
   - {fileID: 1995359050}
   - {fileID: 1747725142}
   - {fileID: 1973035546}
   - {fileID: 1297225608}
-  - {fileID: 564274744}
-  - {fileID: 89510066}

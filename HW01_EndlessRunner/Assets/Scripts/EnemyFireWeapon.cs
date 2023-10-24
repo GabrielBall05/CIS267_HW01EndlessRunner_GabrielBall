@@ -22,11 +22,13 @@ public class EnemyFireWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Only start shooting once the 6 seconds are up
         if (timeBeforeFirstFire <= 0)
         {
             if (timeBetweenShots <= 0)
             {
                 timeBetweenShots = fireRate;
+                //Enemy can now fire
                 canFire = true;
             }
             else
@@ -36,16 +38,18 @@ public class EnemyFireWeapon : MonoBehaviour
 
             if (canFire)
             {
+                //Don't check for key input since the enemy will just shoot every time it is ready to shoot
+
+                //Rest canFire to false
                 canFire = false;
                 shoot();
             }
         }
+        //If 6 seconds aren't up, decrement timeBeforeFirstFire
         else
         {
             timeBeforeFirstFire -= Time.deltaTime;
         }
-
-        
     }
 
     private void shoot()

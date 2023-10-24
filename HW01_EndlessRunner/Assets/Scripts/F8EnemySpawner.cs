@@ -7,13 +7,11 @@ public class F8EnemySpawner : MonoBehaviour
     public GameObject[] spawnLocations;
     public GameObject enemy;
     private float timer = 0f;
-    //Start value: 15, Getter and Setter to change via time slow collectable (double the value)
     public float timeBetweenSpawns;
 
     // Start is called before the first frame update
     void Start()
     {
-
         //===
         //Spawn one in to start off with
         int randomIndex;
@@ -33,15 +31,17 @@ public class F8EnemySpawner : MonoBehaviour
 
     public void spawnF8Enemies()
     {
-        //Waits 15 seconds then spawns Figure 8 enemy. Will do forever
+        //Waits "timeBetweenSpawns" seconds then spawns Figure 8 enemy. Will do forever
         if (timer <= timeBetweenSpawns)
         {
             timer += Time.deltaTime;
         }
         else
         {
+            //Reset
             timer = 0f;
 
+            //Spawn enemy at random spawn location
             int randomIndex;
             randomIndex = Random.Range(0, spawnLocations.Length);
 
@@ -49,5 +49,10 @@ public class F8EnemySpawner : MonoBehaviour
 
             enemy.transform.position = new Vector2(spawnLocations[randomIndex].transform.position.x, spawnLocations[randomIndex].transform.position.y);
         }
+    }
+
+    public void setTimeBetweenSpawns(float t)
+    {
+        timeBetweenSpawns = t;
     }
 }

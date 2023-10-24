@@ -41,11 +41,9 @@ public class GameOverMenu : MonoBehaviour
     public void viewHighScoresButtonClick()
     {
         highScoresButtonClicked = true;
-        //view high scores
         gameOverMenu.SetActive(false);
         highScoresMenu.SetActive(true);
     }
-
 
     public void exitGameButtonClick()
     {

@@ -14,6 +14,7 @@ public class FireWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //4 bullets per second default fire rat
         fireRate = 0.25f;
     }
 
@@ -30,9 +31,10 @@ public class FireWeapon : MonoBehaviour
             timeBetweenShots -= Time.deltaTime;
         }
 
+        //GetKey instead of GetKeyDown so that the player can just hold spacebar
+        //Instead of having to spam spacebar all the time
         if (Input.GetKey(KeyCode.Space))
         {
-            //Debug.Log("ppppeeeewwww");
             if (canFire)
             {
                 canFire = false;
@@ -44,19 +46,6 @@ public class FireWeapon : MonoBehaviour
     private void shoot()
     {
         Instantiate(bullet, muzzle.position, transform.rotation);
-    }
-
-    public void fireRapidly()
-    {
-        if (timeBetweenShots <= 0)
-        {
-            timeBetweenShots = fireRate;
-            canFire = true;
-        }
-        else
-        {
-            timeBetweenShots -= Time.deltaTime;
-        }
     }
 
     public void setFireRate(float f)
