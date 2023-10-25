@@ -7,17 +7,18 @@ using UnityEngine;
 
 public class SaveData : MonoBehaviour
 {
-    public  void saveData(List<int> list)
+    //This will work on any computer. As long as you run from the same BUILD, high scores will save no matter what and on any computer
+    public void saveData(List<int> list)
     {
         //Add dummy data if there is nothing in the list to start off with
         if (list.Count == 0)
         {
-            list = new List<int>();
+            //list = new List<int>();
             list.Add(0);
-            list.Add(4);
-            list.Add(2);
-            list.Add(3);
-            list.Add(1);
+            list.Add(0);
+            list.Add(0);
+            list.Add(0);
+            list.Add(0);
         }
 
         string path = Application.persistentDataPath + "/highScores.sc";
@@ -49,8 +50,12 @@ public class SaveData : MonoBehaviour
 
             return scores;
         }
-        else
+        else //If there wasn't anything in there:
         {
+            //Call saveData() to make a new file and throw in some dummy data
+            List<int> temp = new List<int>();
+            saveData(temp);
+
             return null;
         }
     }

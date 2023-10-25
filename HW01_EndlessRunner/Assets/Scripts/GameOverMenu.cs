@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
+    public TMP_Text yourScoreText;
     public GameObject gameManager;
     public GameObject gameOverMenu;
     public GameObject highScoresMenu;
@@ -23,6 +25,12 @@ public class GameOverMenu : MonoBehaviour
         if (gm.getGameOver() && !highScoresButtonClicked)
         {
             showGameOverMenu();
+        }
+        else 
+        {
+            //Keep updating yourScoreText (as long as the game isn't over so it doesn't reset to 0)
+            //so that the player can still see their score after they die (on the game over screen)
+            yourScoreText.text = "Your Score: " + gm.getTotalPlayerScore();
         }
     }
 

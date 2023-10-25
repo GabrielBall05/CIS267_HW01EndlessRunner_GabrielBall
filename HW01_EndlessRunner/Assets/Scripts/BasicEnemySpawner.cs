@@ -9,9 +9,15 @@ public class BasicEnemySpawner : MonoBehaviour
     private float timer = 0f;
     public float timeBetweenSpawns;
 
+    private float halfMinuteTimer;
+    private int halfMinutesPassed;
+
     // Start is called before the first frame update
     void Start()
     {
+        halfMinuteTimer = 0;
+        halfMinutesPassed = 0;
+
         //===
         //Spawn one in to start off with
         int randomIndex;
@@ -27,6 +33,8 @@ public class BasicEnemySpawner : MonoBehaviour
     void Update()
     {
         spawnBasicEnemies();
+
+        hasMinutePassed();
     }
 
     public void spawnBasicEnemies()
@@ -51,8 +59,69 @@ public class BasicEnemySpawner : MonoBehaviour
         }
     }
 
-    public void setTimeBetweenSpawns(float t)
+    //=========================
+    //Time and Spawn Rate Stuff
+    //Keeps track of how many half minutes have passed
+    private void hasMinutePassed()
     {
-        timeBetweenSpawns = t;
+        if (halfMinuteTimer >= 30)
+        {
+            halfMinuteTimer = 0;
+            halfMinutesPassed++;
+            changeSpawnTimes();
+        }
+        else
+        {
+            halfMinuteTimer += Time.deltaTime;
+        }
     }
+
+    private void changeSpawnTimes()
+    {
+        //Everything here will be hardcoded. Enemy spawn rates will keep speeding up until it reaches a "max speed" at 10 minutes
+        if (halfMinutesPassed == 1)
+        {
+            timeBetweenSpawns = 4f;
+        }
+        else if (halfMinutesPassed == 2)
+        {
+            timeBetweenSpawns = 3.8f;
+        }
+        else if (halfMinutesPassed == 3)
+        {
+            timeBetweenSpawns = 3.6f;
+        }
+        else if (halfMinutesPassed == 4)
+        {
+            timeBetweenSpawns = 3.4f;
+        }
+        else if (halfMinutesPassed == 5)
+        {
+            timeBetweenSpawns = 3.3f;
+        }
+        else if (halfMinutesPassed == 6)
+        {
+            timeBetweenSpawns = 3.2f;
+        }
+        else if (halfMinutesPassed == 7)
+        {
+            timeBetweenSpawns = 3.1f;
+        }
+        else if (halfMinutesPassed == 8)
+        {
+            timeBetweenSpawns = 3f;
+        }
+        else if (halfMinutesPassed == 9)
+        {
+            timeBetweenSpawns = 2.5f; //Max Basic enemy spawn rate
+        }
+        else if (halfMinutesPassed == 10) //Max game speed
+        {
+            timeBetweenSpawns = 2.5f;
+        } //By this point, it's been 10 minutes and enemies spawn in very often, the player WILL die soon
+
+        Debug.Log(halfMinutesPassed + " minutes passed");
+    }
+    //Time and spawn rate stuff
+    //=========================
 }

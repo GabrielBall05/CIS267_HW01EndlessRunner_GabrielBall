@@ -33,7 +33,7 @@ public class FireWeapon : MonoBehaviour
 
         //GetKey instead of GetKeyDown so that the player can just hold spacebar
         //Instead of having to spam spacebar all the time
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.DownArrow))
         {
             if (canFire)
             {

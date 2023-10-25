@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidBody;
     public float movementSpeed;
     private float inputHorizontal;
+    public Vector3 playerJump;
+    public float jumpForce; //1.5
+    private bool isGrounded = true;
     public int maxHealth; //250
     public float health;
 
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Start");
         playerRigidBody = GetComponent<Rigidbody2D>();
+        playerJump = new Vector3(0.0f, 2.0f, 0.0f);
         gm = GameManager.GetComponent<GameManager>();
 
         //Health bar stuff
@@ -44,20 +48,26 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Update");
         movementHorizontal();
+        jump();
 
         //Ability stuff
-        if (hasTimeSlow) //If I have Time Slow ability:
+        if (hasTimeSlow) //If I have Time Slow ability, do that ability stuff
         {
-            //Do its ability stuff
             timeSlow();
         }
-        if (hasRapidFire)//If I have Rapid Fire ability:
+        if (hasRapidFire)//If I have Rapid Fire ability, do that ability stuff
         {
-            //Do its ability stuff
             rapidFire();
         }
     }
 
+    private void jump()
+    {
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded)
+        {
+            playerRigidBody.AddForce(playerJump * jumpForce, ForceMode2D.Impulse);
+        }
+    }
     
     private void movementHorizontal()
     {
@@ -163,7 +173,23 @@ public class PlayerController : MonoBehaviour
                 gm.addToTotalPlayerScore(gm.getTotalPlayerScore() * (-1));
             } //Will never make player score get into the negatives
         }
+
+        //For jumping
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        //For jumping
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
 
     //=============
     //Ability Stuff
