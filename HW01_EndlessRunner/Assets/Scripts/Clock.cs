@@ -29,6 +29,6 @@ public class Clock : MonoBehaviour
     public void updateTimeGUI()
     {
         //#.00 rounds float to 2 decimal places
-        timeGUI.text = "Time: " + gm.getTime().ToString("#.0") + "s";
+        timeGUI.text = "Time: " + gm.getTime().ToString("#") + "s";
     }
 }
