@@ -6,11 +6,11 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-//========================
+//=========================
 //Name: Gabriel Ball
 //Date: 09-27-23
-//Desc: Ripoff Galaga Game
-//========================
+//Desc: Rip-off Galaga Game
+//=========================
 
 public class GameManager : MonoBehaviour
 {
