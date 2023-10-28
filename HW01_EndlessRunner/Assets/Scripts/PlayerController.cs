@@ -209,8 +209,9 @@ public class PlayerController : MonoBehaviour
             {
                 //Double movement speed to compensate
                 movementSpeed = movementSpeed * 2;
-                //Double firerate to compensate
-                GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() / 2);
+                //2.5x firerate to compensate (I would double, but I couldn't figure out how to double bullet speed, so I'm upping the firerate a bit more
+                GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() / 2.5f);
+
                 x = false;
             }
 
@@ -222,9 +223,9 @@ public class PlayerController : MonoBehaviour
             //Reset
             Time.timeScale = 1;
             movementSpeed = movementSpeed / 2;
-            GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() * 2);
+            GetComponentInChildren<FireWeapon>().setFireRate((float)GetComponentInChildren<FireWeapon>().getFireRate() * 2.5f);
             hasTimeSlow = false; //Player no longer has time slow
-            x = false;
+            x = true;
         }
     }
 
