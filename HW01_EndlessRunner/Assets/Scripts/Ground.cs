@@ -17,11 +17,19 @@ public class Ground : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             //Deducts 500 points every time an enemy gets past the player
-            int deduct = (int)(GetComponent<GameManager>().getTotalPlayerScore() * (-500));
+            float deduct = -500;
             //Debug.Log(deduct);
 
             //Add deduct to totalPlayerScore in GameManager (adds negative number so it really subtracts)
-            GetComponent<GameManager>().addToTotalPlayerScore(deduct);
+            if(GetComponent<GameManager>().getTotalPlayerScore() <= 500)
+            {
+                GetComponent<GameManager>().addToTotalPlayerScore(GetComponent<GameManager>().getTotalPlayerScore() * (-1));
+            }
+            else
+            {
+                GetComponent<GameManager>().addToTotalPlayerScore(deduct);
+            }
+
 
             //Destroy enemy
             Destroy(collision.gameObject);
